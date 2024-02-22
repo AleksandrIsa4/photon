@@ -124,6 +124,7 @@ public class IndexSettings {
             // Create a filter for the synonyms.
             JSONObject filters = (JSONObject) settings.optQuery("/analysis/filter");
 
+            System.out.println("Синонимы insertSynonymFilter    "+filters);
             if (filters == null) {
                 throw new RuntimeException("Analyser update: cannot find filter definition");
             }
@@ -177,6 +178,7 @@ public class IndexSettings {
      * @param value          Value to insert.
      */
     private void insertJsonArrayAfter(String jsonPointer, String field, String positionString, String value) {
+        System.out.println("Синонимы insertJsonArrayAfter jsonPointer    "+jsonPointer+"   "+field+"   "+positionString+"   "+value+"   ");
         JSONObject parent = (JSONObject) settings.optQuery(jsonPointer);
         JSONArray array = parent == null ? null : parent.optJSONArray(field);
         if (array == null) {
@@ -199,5 +201,6 @@ public class IndexSettings {
         }
 
         parent.put(field, new_array);
+        System.out.println("Синонимы insertJsonArrayAfter parent.get(field)    "+parent.get(field));
     }
 }
