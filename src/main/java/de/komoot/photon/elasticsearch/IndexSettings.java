@@ -63,6 +63,8 @@ public class IndexSettings {
         }
 
         JSONObject synonymConfig = new JSONObject(new JSONTokener(new FileReader(synonymFile)));
+        System.out.println("Синонимы    "+synonymConfig.optJSONArray("search_synonyms"));
+        System.out.println("Синонимы    "+synonymConfig.optJSONArray("classification_terms"));
 
         setSearchTimeSynonyms(synonymConfig.optJSONArray("search_synonyms"));
         setClassificationTerms(synonymConfig.optJSONArray("classification_terms"));
@@ -117,9 +119,11 @@ public class IndexSettings {
     }
 
     private void insertSynonymFilter(String filterName, JSONArray synonyms) {
+        System.out.println(filterName+"   "+synonyms);
         if (!synonyms.isEmpty()) {
             // Create a filter for the synonyms.
             JSONObject filters = (JSONObject) settings.optQuery("/analysis/filter");
+
             if (filters == null) {
                 throw new RuntimeException("Analyser update: cannot find filter definition");
             }
